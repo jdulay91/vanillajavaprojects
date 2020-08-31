@@ -3,6 +3,9 @@ const seats = document.querySelectorAll('.row .seat:not(.occupied)')
 const count = document.querySelector('#count')
 const total = document.querySelector('#total')
 const movieSelect = document.querySelector('#movie')
+
+populateUI();
+
 let ticketPrice = +movieSelect.value
 
 
@@ -23,6 +26,22 @@ const updateSelectedCount = () => {
     total.innerText = selectedSeatsCount * ticketPrice
 }
 
+// Get Data from localstorage and populate UI
+function populateUI(){
+    const selectedSeats = JSON.parse(localStorage.getItem('selectedSeats'))
+    if(selectedSeats !== null && selectedSeats.length > 0){
+        seats.forEach((seat, i)=> {
+            if(selectedSeats.indexOf(i) > -1){
+                seat.classList.add('selected')
+            }
+        })
+    }    
+    const selectedMovieIndex = localStorage.getItem('selectedMovieIndex')
+    if(selectedMovieIndex !== null) {
+        movieSelect.selectedIndex = selectedMovieIndex;
+    }
+}
+
 //Movie Select Event
 movieSelect.addEventListener('change', (e) => {
     ticketPrice = +e.target.value
@@ -39,4 +58,7 @@ container.addEventListener('click', (e) => {
         e.target.classList.toggle('selected');
         updateSelectedCount();
     }
-})
+});
+
+//initial count and total set
+updateSelectedCount()
