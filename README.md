@@ -1,4 +1,4 @@
-# vanillajavaprojects
+# vanillajsprojects
 Small Projects using Vanilla JavaScript
 
 TABLE OF CONTENTS
